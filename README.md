@@ -14,10 +14,11 @@ Install fast HTTP Server [Nginx] and configure HTTP/Proxy Server with it.
 
         vi /etc/nginx/nginx.conf 
     
-  _# line 41 : change to your hostname
-    server_name www.kp.test;_
+        # line 41 : change to your hostname
+        server_name www.kp.test;
     
-3. Enable Service    
+3. Enable Service   
+ 
         systemctl enable --now nginx
     
 4. If Firewalld is running, allow HTTP service. HTTP uses [80/TCP]
@@ -25,14 +26,14 @@ Install fast HTTP Server [Nginx] and configure HTTP/Proxy Server with it.
         firewall-cmd --add-service=http
         firewall-cmd --runtime-to-permanent
     
-    You should get  :: _success_
+    You should get  :: **success**
     
 5. Configure and enable SSL/TLS.
 
         vi /etc/nginx/conf.d/ssl.conf
  
-#create new
-#replace servername and path of certificates to your own one
+        #create new
+        #replace servername and path of certificates to your own one
 
         server {
         listen       443 ssl http2 default_server;
@@ -85,4 +86,4 @@ Install fast HTTP Server [Nginx] and configure HTTP/Proxy Server with it.
         firewall-cmd --add-service=https
         firewall-cmd --runtime-to-permanent
         
-    You should get  :: _success_
+    You should get  :: **success**
