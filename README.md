@@ -1,7 +1,29 @@
-# What is Puppet?
+# NGINX
 
-**Puppet is a software configuration management tool which includes its own declarative language to describe system configuration. It is a model-driven solution that requires limited programming knowledge to use.**
+![logo](https://blog.desdelinux.net/wp-content/uploads/2022/05/Nginx.jpg)
 
-![logo](https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Puppet_Logo.svg/1200px-Puppet_Logo.svg.png)
+**nginx [engine x] is an HTTP and reverse proxy server, a mail proxy server, and a generic TCP/UDP proxy server, originally written by Igor Sysoev.**
 
+Install fast HTTP Server [Nginx] and configure HTTP/Proxy Server with it.
 
+1. Install Nginx.
+
+    yum -y install nginx
+    
+2. Configure Nginx.
+
+    vi /etc/nginx/nginx.conf 
+    
+_# line 41 : change to your hostname
+    server_name www.kp.test;_
+    
+3. Enable Service    
+    systemctl enable --now nginx
+    
+4. If Firewalld is running, allow HTTP service. HTTP uses [80/TCP]
+
+    firewall-cmd --add-service=http
+    firewall-cmd --runtime-to-permanent
+    
+    _success_
+    
