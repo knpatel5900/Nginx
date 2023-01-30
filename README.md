@@ -27,3 +27,37 @@ Install fast HTTP Server [Nginx] and configure HTTP/Proxy Server with it.
     
     You should get  :: _success_
     
+5. Configure and enable SSL/TLS.
+
+        vi /etc/nginx/conf.d/ssl.conf
+ 
+#create new
+#replace servername and path of certificates to your own one
+        server {
+                        listen       443 ssl http2 default_server;
+                        listen       [::]:443 ssl http2 default_server;
+                        server_name  www.kp.test;
+                        root         /usr/share/nginx/html;
+
+                        ssl_certificate "/etc/letsencrypt/live/www.kp.test/fullchain.pem";
+                        ssl_certificate_key "/etc/letsencrypt/live/www.kp.test/privkey.pem";
+                        ssl_session_cache shared:SSL:1m;
+                        ssl_session_timeout  10m;
+                        ssl_ciphers PROFILE=SYSTEM;
+                        ssl_prefer_server_ciphers on;
+
+                        include /etc/nginx/default.d/*.conf;
+
+                        location / {
+                        }
+
+                        error_page 404 /404.html;
+                        location = /40x.html {
+                        }
+
+                        error_page 500 502 503 504 /50x.html;
+                        location = /50x.html {
+                        }
+                  }
+
+    
