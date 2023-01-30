@@ -33,12 +33,12 @@ Install fast HTTP Server [Nginx] and configure HTTP/Proxy Server with it.
  
 #create new
 #replace servername and path of certificates to your own one
+
         server {
         listen       443 ssl http2 default_server;
         listen       [::]:443 ssl http2 default_server;
         server_name  www.kp.test;
         root         /usr/share/nginx/html;
-
         ssl_certificate "/etc/letsencrypt/live/www.kp.test/fullchain.pem";
         ssl_certificate_key "/etc/letsencrypt/live/www.kp.test/privkey.pem";
         ssl_session_cache shared:SSL:1m;
@@ -50,7 +50,7 @@ Install fast HTTP Server [Nginx] and configure HTTP/Proxy Server with it.
 
         location / {
         }
-
+        
         error_page 404 /404.html;
         location = /40x.html {
         }
@@ -59,4 +59,30 @@ Install fast HTTP Server [Nginx] and configure HTTP/Proxy Server with it.
         location = /50x.html {
         }
         }
-                       
+        
+6. Reload Service
+
+       systemctl reload nginx 
+       
+7. If you'd like to set HTTP connection to redirect to HTTPS (Always on SSL/TLS), configure
+       
+       vi /etc/nginx/nginx.conf
+       
+       # add into the section of listening 80 port
+       server {
+        listen       80 default_server;
+        listen       [::]:80 default_server;
+        return       301 https://$host$request_uri;
+        server_name  www.srv.world;
+        root         /usr/share/nginx/html;
+        
+8. Reload Service
+
+       systemctl reload nginx
+        
+9.  Allow HTTPS service. HTTPS uses [443/TCP].
+        
+        firewall-cmd --add-service=https
+        firewall-cmd --runtime-to-permanent
+        
+    You should get  :: _success_
