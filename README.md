@@ -8,22 +8,22 @@ Install fast HTTP Server [Nginx] and configure HTTP/Proxy Server with it.
 
 1. Install Nginx.
 
-    yum -y install nginx
+        yum -y install nginx
     
 2. Configure Nginx.
 
-    vi /etc/nginx/nginx.conf 
+        vi /etc/nginx/nginx.conf 
     
-_# line 41 : change to your hostname
+  _# line 41 : change to your hostname
     server_name www.kp.test;_
     
 3. Enable Service    
-    systemctl enable --now nginx
+        systemctl enable --now nginx
     
 4. If Firewalld is running, allow HTTP service. HTTP uses [80/TCP]
 
-    firewall-cmd --add-service=http
-    firewall-cmd --runtime-to-permanent
+        firewall-cmd --add-service=http
+        firewall-cmd --runtime-to-permanent
     
-    _success_
+    You should get  :: _success_
     
